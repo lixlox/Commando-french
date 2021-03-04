@@ -557,7 +557,7 @@ class Command {
         user.discriminator
       }\xa0${nbcmd}\``;
 
-    return `${prefixPart || ""}${prefix && user ? " or " : ""}${
+    return `${prefixPart || ""}${prefix && user ? " ou " : ""}${
       mentionPart || ""
     }`;
   }

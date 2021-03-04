@@ -170,7 +170,7 @@ module.exports = class HelpCommand extends Command {
         if (msg.channel.type !== "dm")
           messages.push(
             await msg.reply(
-              "Un message privé à été envoyé avec les informations."
+              "Un message privé a été envoyé avec les informations."
             )
           );
       } catch (err) {
