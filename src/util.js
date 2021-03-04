@@ -47,9 +47,9 @@ function paginate(items, page = 1, pageLength = 10) {
 }
 
 const permissions = {
-  ADMINISTRATOR: "Administrator",
-  VIEW_AUDIT_LOG: "View audit log",
-  MANAGE_GUILD: "Manage server",
+  ADMINISTRATOR: "Administrateur",
+  VIEW_AUDIT_LOG: "Voir les logs du serveur",
+  MANAGE_GUILD: "Gérer le serveur",
   MANAGE_ROLES: "Manage roles",
   MANAGE_CHANNELS: "Manage channels",
   KICK_MEMBERS: "Kick members",
