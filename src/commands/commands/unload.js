@@ -1,52 +1,61 @@
-const { oneLine } = require('common-tags');
-const Command = require('../base');
+const { oneLine } = require("common-tags");
+const Command = require("../base");
 
 module.exports = class UnloadCommandCommand extends Command {
-	constructor(client) {
-		super(client, {
-			name: 'unload',
-			aliases: ['unload-command'],
-			group: 'commands',
-			memberName: 'unload',
-			description: 'Unloads a command.',
-			details: oneLine`
-				The argument must be the name/ID (partial or whole) of a command.
-				Only the bot owner(s) may use this command.
+  constructor(client) {
+    super(client, {
+      name: "unload",
+      aliases: ["unload-command"],
+      group: "commands",
+      memberName: "unload",
+      description: "décharge une commande.",
+      details: oneLine`
+				L'argument doit être le nom/identifiant (partiel ou complet) d'une commande.
+				Seul les propriétaires du bot peuvent utiliser cette commande.
 			`,
-			examples: ['unload some-command'],
-			ownerOnly: true,
-			guarded: true,
+      examples: ["unload some-command"],
+      ownerOnly: true,
+      guarded: true,
 
-			args: [
-				{
-					key: 'command',
-					prompt: 'Which command would you like to unload?',
-					type: 'command'
-				}
-			]
-		});
-	}
+      args: [
+        {
+          key: "command",
+          prompt: "Quelle commande voulez-vous décharger ?",
+          type: "command",
+        },
+      ],
+    });
+  }
 
-	async run(msg, args) {
-		args.command.unload();
+  async run(msg, args) {
+    args.command.unload();
 
-		if(this.client.shard) {
-			try {
-				await this.client.shard.broadcastEval(`
-					const ids = [${this.client.shard.ids.join(',')}];
+    if (this.client.shard) {
+      try {
+        await this.client.shard.broadcastEval(`
+					const ids = [${this.client.shard.ids.join(",")}];
 					if(!this.shard.ids.some(id => ids.includes(id))) {
 						this.registry.commands.get('${args.command.name}').unload();
 					}
 				`);
-			} catch(err) {
-				this.client.emit('warn', `Error when broadcasting command unload to other shards`);
-				this.client.emit('error', err);
-				await msg.reply(`Unloaded \`${args.command.name}\` command, but failed to unload on other shards.`);
-				return null;
-			}
-		}
+      } catch (err) {
+        this.client.emit(
+          "warn",
+          `Erreur lors de l'émission de la commande unload vers les autres shards`
+        );
+        this.client.emit("error", err);
+        await msg.reply(
+          `La commande \`${args.command.name}\` a été déchargée, mais elle n'a pas réussi à être déchargée dans les autres shards.`
+        );
+        return null;
+      }
+    }
 
-		await msg.reply(`Unloaded \`${args.command.name}\` command${this.client.shard ? ' on all shards' : ''}.`);
-		return null;
-	}
+    await msg.reply(
+      `La commande \`${args.command.name}\` a été déchargée${
+        this.client.shard ? " dans tous les shards" : ""
+      }.`
+    );
+    return null;
+  }
 };

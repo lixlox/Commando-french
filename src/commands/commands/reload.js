@@ -1,68 +1,81 @@
-const { oneLine } = require('common-tags');
-const Command = require('../base');
+const { oneLine } = require("common-tags");
+const Command = require("../base");
 
 module.exports = class ReloadCommandCommand extends Command {
-	constructor(client) {
-		super(client, {
-			name: 'reload',
-			aliases: ['reload-command'],
-			group: 'commands',
-			memberName: 'reload',
-			description: 'Reloads a command or command group.',
-			details: oneLine`
-				The argument must be the name/ID (partial or whole) of a command or command group.
-				Providing a command group will reload all of the commands in that group.
-				Only the bot owner(s) may use this command.
+  constructor(client) {
+    super(client, {
+      name: "reload",
+      aliases: ["reload-command"],
+      group: "commands",
+      memberName: "reload",
+      description: "Recharge une commande ou un groupe de commandes.",
+      details: oneLine`
+				L'argument doit être le nom/identifiant (partiel ou complet) d'une commande ou d'un groupe de commandes.
+				Fournir un groupe de commandes va recharger l'ensemble des commandes dans ce groupe.
+				Seul les propriétaires du bot peuvent utiliser cette commande.
 			`,
-			examples: ['reload some-command'],
-			ownerOnly: true,
-			guarded: true,
+      examples: ["reload some-command"],
+      ownerOnly: true,
+      guarded: true,
 
-			args: [
-				{
-					key: 'cmdOrGrp',
-					label: 'command/group',
-					prompt: 'Which command or group would you like to reload?',
-					type: 'group|command'
-				}
-			]
-		});
-	}
+      args: [
+        {
+          key: "cmdOrGrp",
+          label: "command/group",
+          prompt: "Quelle commande ou groupe voulez-vous recharger?",
+          type: "group|command",
+        },
+      ],
+    });
+  }
 
-	async run(msg, args) {
-		const { cmdOrGrp } = args;
-		const isCmd = Boolean(cmdOrGrp.groupID);
-		cmdOrGrp.reload();
+  async run(msg, args) {
+    const { cmdOrGrp } = args;
+    const isCmd = Boolean(cmdOrGrp.groupID);
+    cmdOrGrp.reload();
 
-		if(this.client.shard) {
-			try {
-				await this.client.shard.broadcastEval(`
-					const ids = [${this.client.shard.ids.join(',')}];
+    if (this.client.shard) {
+      try {
+        await this.client.shard.broadcastEval(`
+					const ids = [${this.client.shard.ids.join(",")}];
 					if(!this.shard.ids.some(id => ids.includes(id))) {
-						this.registry.${isCmd ? 'commands' : 'groups'}.get('${isCmd ? cmdOrGrp.name : cmdOrGrp.id}').reload();
+						this.registry.${isCmd ? "commands" : "groups"}.get('${
+          isCmd ? cmdOrGrp.name : cmdOrGrp.id
+        }').reload();
 					}
 				`);
-			} catch(err) {
-				this.client.emit('warn', `Error when broadcasting command reload to other shards`);
-				this.client.emit('error', err);
-				if(isCmd) {
-					await msg.reply(`Reloaded \`${cmdOrGrp.name}\` command, but failed to reload on other shards.`);
-				} else {
-					await msg.reply(
-						`Reloaded all of the commands in the \`${cmdOrGrp.name}\` group, but failed to reload on other shards.`
-					);
-				}
-				return null;
-			}
-		}
+      } catch (err) {
+        this.client.emit(
+          "warn",
+          `Erreur lors de l'émission de la commande reload vers les autres shards`
+        );
+        this.client.emit("error", err);
+        if (isCmd) {
+          await msg.reply(
+            `La commande \`${cmdOrGrp.name}\` a été rechargée, mais elle n'a pas réussi à recharger dans les autres shards.`
+          );
+        } else {
+          await msg.reply(
+            `Les commandes dans le groupe \`${cmdOrGrp.name}\` ont été rechargées, mais elles n'ont pas réussi à recharger dans les autres shards.`
+          );
+        }
+        return null;
+      }
+    }
 
-		if(isCmd) {
-			await msg.reply(`Reloaded \`${cmdOrGrp.name}\` command${this.client.shard ? ' on all shards' : ''}.`);
-		} else {
-			await msg.reply(
-				`Reloaded all of the commands in the \`${cmdOrGrp.name}\` group${this.client.shard ? ' on all shards' : ''}.`
-			);
-		}
-		return null;
-	}
+    if (isCmd) {
+      await msg.reply(
+        `La commande \`${cmdOrGrp.name}\` a été rechargée${
+          this.client.shard ? " on all shards" : ""
+        }.`
+      );
+    } else {
+      await msg.reply(
+        `Les commandes dans le groupe \`${cmdOrGrp.name}\` ont été rechargées${
+          this.client.shard ? " dans tous les shards" : ""
+        }.`
+      );
+    }
+    return null;
+  }
 };
