@@ -4,11 +4,11 @@ const Command = require("../base");
 module.exports = class PrefixCommand extends Command {
   constructor(client) {
     super(client, {
-      name: "prefix",
+      name: "prefixe",
       group: "util",
-      memberName: "prefix",
+      memberName: "prefixe",
       description: "Affiche ou modifie le préfixe de commandes.",
-      format: '[prefix/"default"/"none"]',
+      format: '[prefixe/"default"/"none"]',
       details: oneLine`
 				Si aucun préfixe n'est fournis, le préfixe actuel va être affiché.
 				Si le préfixe est "default", le préfixe va être réinitialisé au préfixe par défaut du bot.
@@ -16,11 +16,11 @@ module.exports = class PrefixCommand extends Command {
 				Seul les administrateurs peuvent changer le préfixe.
 			`,
       examples: [
-        "prefix",
-        "prefix -",
-        "prefix omg!",
-        "prefix default",
-        "prefix none",
+        "prefixe",
+        "prefixe -",
+        "prefixe omg!",
+        "prefixe default",
+        "prefixe none",
       ],
 
       args: [
@@ -47,7 +47,7 @@ module.exports = class PrefixCommand extends Command {
             ? `Le préfixe de commandes est \`${prefix}\`.`
             : "Il n'y a pas de préfixe de commande."
         }
-				Pour executer des commandes, utilisez ${msg.anyUsage("command")}.
+				Pour executer des commandes, utilisez ${msg.anyUsage("commande")}.
 			`);
     }
 
@@ -88,7 +88,7 @@ module.exports = class PrefixCommand extends Command {
 
     await msg.reply(
       `${response} Pour executer des commandes, utilisez ${msg.anyUsage(
-        "command"
+        "commande"
       )}.`
     );
     return null;

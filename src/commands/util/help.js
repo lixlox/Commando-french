@@ -5,9 +5,9 @@ const { disambiguation } = require("../../util");
 module.exports = class HelpCommand extends Command {
   constructor(client) {
     super(client, {
-      name: "help",
+      name: "aide",
       group: "util",
-      memberName: "help",
+      memberName: "aide",
       aliases: ["commands"],
       description:
         "Affiche une liste des commandes disponibles, ou des informations détaillées sur une commande spécifique.",
@@ -15,7 +15,7 @@ module.exports = class HelpCommand extends Command {
 				L'argument peut être un bout du nom de la commande ou le nom de la commande complet.
 				Si le nom de la commande n'est pas indiqué, toutes les commandes disponibles vont être listées.
 			`,
-      examples: ["help", "help prefix"],
+      examples: ["aide", "aide prefixe"],
       guarded: true,
 
       args: [
@@ -86,7 +86,7 @@ module.exports = class HelpCommand extends Command {
           "Plusieurs commandes ont été trouvées. S'il vous plait, soyez plus spécifique."
         );
       } else if (commands.length > 1) {
-        return msg.reply(disambiguation(commands, "commands"));
+        return msg.reply(disambiguation(commands, "commandes"));
       } else {
         return msg.reply(
           `Je n'ai pas pu identifier la commande. Utilisez ${msg.usage(
@@ -107,24 +107,24 @@ module.exports = class HelpCommand extends Command {
               msg.guild ? msg.guild.name : "n'importe quel serveur"
             },
 						utilisez ${Command.usage(
-              "command",
+              "commande",
               msg.guild ? msg.guild.commandPrefix : null,
               this.client.user
             )}.
 						Par exemple, ${Command.usage(
-              "prefix",
+              "prefixe",
               msg.guild ? msg.guild.commandPrefix : null,
               this.client.user
             )}.
 					`}
 					Pour executer une commande dans ces messages privés, utilisez simplement ${Command.usage(
-            "command",
+            "commande",
             null,
             null
           )} sans aucun préfixe.
 
 					Utilisez ${this.usage(
-            "<command>",
+            "<commande>",
             null,
             null
           )} pour voir les informations détaillées sur une commande spécifique.
