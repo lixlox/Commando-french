@@ -17,7 +17,7 @@ module.exports = class UnknownCommandCommand extends Command {
   run(msg) {
     return msg.reply(
       `Commande inconnue. Utilisez ${msg.anyUsage(
-        "help",
+        "aide",
         msg.guild ? undefined : null,
         msg.guild ? undefined : null
       )} pour voir la liste des commandes.`
