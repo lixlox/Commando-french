@@ -5,16 +5,16 @@ const Command = require("../base");
 module.exports = class LoadCommandCommand extends Command {
   constructor(client) {
     super(client, {
-      name: "load",
-      aliases: ["load-command"],
+      name: "charger",
+      aliases: ["charger-commande", "load"],
       group: "commands",
-      memberName: "load",
+      memberName: "charger",
       description: "Charge une nouvelle commande.",
       details: oneLine`
 				L'argument doit être le nom complet de la commande dans le format \`group:memberName\`.
 				Seul les propriétaires du bot peuvent utiliser cette commande.
 			`,
-      examples: ["load some-command"],
+      examples: ["charger une-commande"],
       ownerOnly: true,
       guarded: true,
 

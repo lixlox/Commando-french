@@ -4,17 +4,17 @@ const Command = require("../base");
 module.exports = class ReloadCommandCommand extends Command {
   constructor(client) {
     super(client, {
-      name: "reload",
-      aliases: ["reload-command"],
+      name: "recharger",
+      aliases: ["recharger-commande", "reload"],
       group: "commands",
-      memberName: "reload",
+      memberName: "recharger",
       description: "Recharge une commande ou un groupe de commandes.",
       details: oneLine`
 				L'argument doit être le nom/identifiant (partiel ou complet) d'une commande ou d'un groupe de commandes.
 				Fournir un groupe de commandes va recharger l'ensemble des commandes dans ce groupe.
 				Seul les propriétaires du bot peuvent utiliser cette commande.
 			`,
-      examples: ["reload some-command"],
+      examples: ["recharger une-commande"],
       ownerOnly: true,
       guarded: true,
 

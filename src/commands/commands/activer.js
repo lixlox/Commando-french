@@ -4,16 +4,16 @@ const Command = require("../base");
 module.exports = class EnableCommandCommand extends Command {
   constructor(client) {
     super(client, {
-      name: "enable",
-      aliases: ["enable-command", "cmd-on", "command-on"],
+      name: "activer",
+      aliases: ["enable", "enable-command", "cmd-on", "command-on"],
       group: "commands",
-      memberName: "enable",
+      memberName: "activer",
       description: "Active une commande ou un groupe de commandes.",
       details: oneLine`
 				Cet argument doit être le nom/identifiant (partiel ou complet) d'une commande ou d'un groupe de commandes.
 				Seul les administrateurs peuvent utiliser cette commande.
 			`,
-      examples: ["enable util", "enable Utility", "enable prefix"],
+      examples: ["activer util", "activer Utilité", "activer prefixe"],
       guarded: true,
 
       args: [

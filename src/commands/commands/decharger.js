@@ -4,16 +4,16 @@ const Command = require("../base");
 module.exports = class UnloadCommandCommand extends Command {
   constructor(client) {
     super(client, {
-      name: "unload",
-      aliases: ["unload-command"],
+      name: "decharger",
+      aliases: ["decharger-commande", "unload"],
       group: "commands",
-      memberName: "unload",
+      memberName: "decharger",
       description: "décharge une commande.",
       details: oneLine`
 				L'argument doit être le nom/identifiant (partiel ou complet) d'une commande.
 				Seul les propriétaires du bot peuvent utiliser cette commande.
 			`,
-      examples: ["unload some-command"],
+      examples: ["decharger une-commande"],
       ownerOnly: true,
       guarded: true,
 

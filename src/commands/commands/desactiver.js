@@ -4,16 +4,16 @@ const Command = require("../base");
 module.exports = class DisableCommandCommand extends Command {
   constructor(client) {
     super(client, {
-      name: "disable",
-      aliases: ["disable-command", "cmd-off", "command-off"],
+      name: "desactiver",
+      aliases: ["disable", "desactiver-commande", "cmd-off", "command-off"],
       group: "commands",
-      memberName: "disable",
+      memberName: "desactiver",
       description: "Désactiver une commande ou un groupe de commandes.",
       details: oneLine`
 				L'argument doit être le nom/identifiant (partiel ou complet) d'une commande ou d'un groupe de commandes.
 				Seul les administrateurs peuvent utiliser cette commande.
 			`,
-      examples: ["disable util", "disable Utility", "disable prefix"],
+      examples: ["desactiver util", "desactiver Utilité", "desactiver prefixe"],
       guarded: true,
 
       args: [

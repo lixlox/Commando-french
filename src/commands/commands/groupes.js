@@ -4,10 +4,10 @@ const Command = require("../base");
 module.exports = class ListGroupsCommand extends Command {
   constructor(client) {
     super(client, {
-      name: "groups",
-      aliases: ["list-groups", "show-groups"],
+      name: "groupes",
+      aliases: ["groups", "lister-groupes", "show-groups"],
       group: "commands",
-      memberName: "groups",
+      memberName: "groupes",
       description: "Liste tous les groupes de commandes.",
       details: "Seul les administrateurs peuvent utiliser cette commande.",
       guarded: true,
