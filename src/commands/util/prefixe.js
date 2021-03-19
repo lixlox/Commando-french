@@ -54,7 +54,7 @@ module.exports = class PrefixCommand extends Command {
     // Check the user's permission before changing anything
     if (msg.guild) {
       if (
-        !msg.member.hasPermission("ADMINISTRATOR") &&
+        !msg.member.permissions.has("ADMINISTRATOR") &&
         !this.client.isOwner(msg.author)
       ) {
         return msg.reply(
